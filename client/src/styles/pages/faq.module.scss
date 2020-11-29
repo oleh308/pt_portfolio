@@ -1,0 +1,44 @@
+@import '../variables/colours.scss';
+
+.container {
+
+  .content {
+    width: 90%;
+    margin: auto;
+    max-width: 800px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    .question {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .questionButton {
+        width: 100%;
+        border: none;
+        display: flex;
+        cursor: pointer;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+        justify-content: space-between;
+        border-bottom: 2px solid black;
+
+        svg {
+          fill: black;
+          margin: 0 20px;
+        }
+
+        h2 {
+          color: $silver;
+          font-style: italic;
+        }
+      }
+
+      .questionButton:focus {
+        outline: none;
+      }
+    }
+  }
+
+}

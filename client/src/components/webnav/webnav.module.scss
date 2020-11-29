@@ -1,0 +1,91 @@
+@import '../../styles/variables/colours.scss';
+
+.webnav {
+  z-index: 2;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  padding: 0 5%;
+  position: fixed;
+  padding-left: 2.5%;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+
+  .leftside {
+    width: 50%;
+
+    img {
+      width: 175px;
+    }
+  }
+
+  .rightside {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .menuIcon {
+      fill: white;
+    }
+  }
+
+  .smallRightside {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .menuIcon {
+      fill: white;
+    }
+
+    .mobileMenu {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 75%;
+      display: flex;
+      position: fixed;
+      max-width: 250px;
+      flex-direction: column;
+      background-color: black;
+
+      button {
+        font-size: 16px;
+        margin: 0 20px;
+      }
+
+      svg {
+        fill: white;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  button {
+    color: white;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .bookButton {
+    color: $red;
+    padding: 0 5%;
+    border-radius: 3px;
+    border: 1px solid $red;
+  }
+}
+
+.black {
+  background-color: black;
+}

@@ -1,0 +1,79 @@
+@import '../variables/colours.scss';
+
+.container {
+  .content {
+    width: 90%;
+    margin: auto;
+    max-width: 800px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    .client {
+      width: 100%;
+      display: flex;
+      margin-top: 30px;
+      padding-top: 30px;
+      flex-direction: column;
+      border-top: 2px solid $silver;
+
+      .header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img {
+          width: 20%;
+          object-fit: contain;
+        }
+
+        .transition {
+          width: 7.5%;
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+
+          .line {
+            width: 100%;
+            height: 2px;
+            background-color: $silver;
+          }
+
+          svg {
+            fill: $silver;
+            margin-left: -12px;
+          }
+        }
+
+        .details {
+          flex: 1;
+          margin-left: 3%;
+
+          .detail {
+            width: 100%;
+            display: flex;
+            white-space: nowrap;
+            flex-direction: row;
+            align-items: center;
+
+            h3 {
+              margin: 0;
+              margin-right: 3%;
+            }
+          }
+        }
+      }
+
+      .feedback {
+        color: $silver;
+        margin-bottom: 0;
+        font-style: italic;
+      }
+    }
+
+    .client:first-child {
+      margin-top: 0;
+      border-top: none;
+    }
+  }
+}

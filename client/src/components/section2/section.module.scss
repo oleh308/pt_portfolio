@@ -1,0 +1,22 @@
+@import '../../styles/variables/responsiveness.scss';
+
+.section {
+  height: 600px;
+  margin-top: 60px;
+  background-size: cover;
+  background-position: center;
+
+  main {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0,rgba(0,0,0,1) 100%);
+  }
+
+  @media (max-width: $sectionBreakpoint) {
+    height: auto;
+  }
+}
+
+.sectionType1 {
+  background-image: url("/images/background1.jpg");
+}

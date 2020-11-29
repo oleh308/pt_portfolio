@@ -1,0 +1,30 @@
+@import '../../styles/variables/colours.scss';
+
+.section {
+  width: 90%;
+  margin: auto;
+  max-width: 800px;
+  margin-top: 20px;
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .titleBack {
+      padding: 1% 4%;
+      display: inline-block;
+      background-color: black;
+
+      h2 {
+        margin: auto;
+        color: white;
+        padding-bottom: 1%;
+        text-align: center;
+        white-space: nowrap;
+        border-bottom: 2px solid $gold;
+        font-family: 'Archivo Black', sans-serif;
+      }
+    }
+  }
+}
