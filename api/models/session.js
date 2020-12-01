@@ -16,6 +16,6 @@ var SessionSchema = new Schema({
 });
 
 // Compile model from schema
-var Session = mongoose.model('SessionModel', SessionSchema);
+var Session = mongoose.model('Session', SessionSchema);
 
 module.exports = Session;
