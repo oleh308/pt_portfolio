@@ -22,6 +22,7 @@ app.prepare().then(() => {
   });
 
   server.get('/dashboard/login', (req, res) => {
+    console.log(req.isAuthenticated())
     if(req.isAuthenticated()) {
       res.redirect('/dashboard');
     } else {

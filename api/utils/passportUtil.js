@@ -30,5 +30,4 @@ passport.deserializeUser((id, done) => {
   }).catch(error => {
     done(error, false);
   })
-  done(null, false);
 });

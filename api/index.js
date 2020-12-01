@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const AdminRouter = require('./routers/adminRouter');
 const SessionRouter = require('./routers/sessionRouter');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const SECRET = process.env.SECRET || 'randomstring';
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/pt_portfolio';
@@ -30,12 +31,18 @@ class API {
   }
 
   middleware() {
+    const store = new MongoDBStore({
+      uri: MONGODB_URL,
+      collection: 'apisessions'
+    });
+
     this.app.use(bodyParser.urlencoded({ extended: false }))
     this.app.use(bodyParser.json());
     this.app.use(session({
       genid: (req) => {
         return uuidv4() // use UUIDs for session IDs
       },
+      store: store,
       secret: SECRET,
       resave: false,
       httpOnly: true,

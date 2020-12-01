@@ -5,10 +5,6 @@ class AdminController {
   async login(req, res, next) {
     try {
       passport.authenticate('local', (err, user, info) => {
-        console.log('Inside passport.authenticate() callback');
-        console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-        console.log(`req.user: ${JSON.stringify(req.user)}`)
-
         if (!user) {
           return res.send(info);
         } else if (err) {
@@ -16,10 +12,7 @@ class AdminController {
         }
 
         req.login(user, (err) => {
-          console.log('Inside req.login() callback')
-          console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-          console.log(`req.user: ${JSON.stringify(req.user)}`)
-          return res.send('You were authenticated & logged in!\n');
+          return res.send('');
         })
       })(req, res, next);
     } catch (error) {
