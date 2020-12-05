@@ -1,0 +1,41 @@
+@import '../../../styles/variables/colours.scss';
+
+.dropDown {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+
+  label {
+    color: $silver;
+    font-size: 14px;
+  }
+
+  select {
+    display: none;
+  }
+
+  .selected {
+    height: 40px;
+    display: flex;
+    padding: 0 15px;
+    border-radius: 3px;
+    align-items: center;
+    border: 1px solid $silver;
+    background-color: transparent;
+  }
+
+  .option {
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid $silver;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: none;
+  }
+}

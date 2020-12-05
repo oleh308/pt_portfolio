@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const AdminRouter = require('./routers/adminRouter');
 const SessionRouter = require('./routers/sessionRouter');
+const CMSBlockRouter = require('./routers/cmsblockRouter');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const SECRET = process.env.SECRET || 'randomstring';
@@ -55,6 +56,7 @@ class API {
   routes() {
     this.app.use('/api/sessions', new SessionRouter().router);
     this.app.use('/api/admins', new AdminRouter().router);
+    this.app.use('/api/cmsblocks', new CMSBlockRouter().router);
   }
 }
 

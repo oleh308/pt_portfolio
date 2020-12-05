@@ -1,0 +1,64 @@
+@import '../../variables/colours.scss';
+
+.pages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .switch {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+    button {
+      flex: 1;
+      height: 40px;
+      border: none;
+      color: white;
+      color: black;
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid black;
+      background-color: transparent;
+    }
+
+    button:first-of-type {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    button:last-of-type {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .selected {
+      color: white;
+      background-color: black;
+    }
+  }
+
+  .createBlock {
+    height: 40px;
+    color: $silver;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: 1px dashed $silver;
+    background-color: transparent;
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  .createBlock:focus {
+    outline: none;
+  }
+}

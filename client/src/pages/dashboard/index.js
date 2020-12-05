@@ -1,8 +1,14 @@
 import Cookies from 'cookies';
 
+import AdminNav from '../../components/adminnav';
+import AdminContent from '../../components/admincontent';
+
 function Dashboard() {
   return (
-    <h1>Dashboard</h1>
+    <div>
+      <AdminNav selected={0} />
+      <AdminContent />
+    </div>
   )
 }
 
