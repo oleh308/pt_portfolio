@@ -8,6 +8,7 @@ import s from '../../styles/pages/dashboard/pages.module.scss';
 
 function Pages() {
   const [content, setContent] = useState('pages');
+  const [openCreate, setOpenCreate] = useState(false);
   const [state, dispatch] = useReducer(SearchReducer, init);
   const { search } = state;
 
@@ -29,10 +30,10 @@ function Pages() {
               <h3>Blocks</h3>
             </button>
           </div>
-          <button className={s.createBlock}>
+          {!openCreate && <button className={s.createBlock} onClick={() => setOpenCreate(true)}>
             <h4>Create Block</h4>
-          </button>
-          <CreateBlock />
+          </button>}
+          {openCreate && <CreateBlock close={() => setOpenCreate(false)} />}
         </div>
       </AdminContent>
     </SearchContext.Provider>

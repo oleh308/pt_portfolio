@@ -2,28 +2,28 @@ const aboutTemplate = {
   key: 'aboutme',
   title: 'About me',
   blockTitle: {
-    default: '',
+    value: '',
     type: 'input',
     title: 'Section title'
   },
   quote1: {
-    default: '',
+    value: '',
     type: 'input',
     title: 'First quote'
   },
   quote2: {
-    default: '',
+    value: '',
     type: 'input',
     title: 'Second quote'
   },
   paragraphs: {
-    default: '',
+    values: [],
     type: 'array',
     arrayOf: 'textarea',
     title: 'Paragraphs'
   },
   points: {
-    default: '',
+    values: [],
     type: 'array',
     arrayOf: 'textarea',
     title: 'Story line'

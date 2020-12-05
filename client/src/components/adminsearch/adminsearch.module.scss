@@ -12,13 +12,17 @@
   input {
     width: 100%;
     color: white;
-    height: 30px;
+    height: 35px;
     padding: 0 10px;
     max-width: 300px;
     border-radius: 3px;
     box-sizing: border-box;
-    border: 1px solid $silver;
+    border: 1px solid white;
     background-color: transparent
+  }
+
+  input::placeholder {
+    color: white;
   }
 
   input:focus {
