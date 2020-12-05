@@ -1,0 +1,25 @@
+.login {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 90%;
+    padding: 2%;
+    display: flex;
+    max-width: 300px;
+    border-radius: 3px;
+    flex-direction: column;
+    border: 1px solid black;
+
+    input {
+      height: 30px;
+      margin-bottom: 10px;
+    }
+  }
+}
