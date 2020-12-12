@@ -1,22 +1,16 @@
-import Cookies from 'cookies';
-
-import AdminNav from '../../components/adminnav';
+import { useReducer, useState, useEffect } from 'react';
 import AdminContent from '../../components/admincontent';
+import { SearchContext, SearchReducer, init } from '../../contexts/search';
 
 function Dashboard() {
+  const [state, dispatch] = useReducer(SearchReducer, init);
+
   return (
-    <div>
-      <AdminNav selected={0} />
-      <AdminContent />
-    </div>
+    <SearchContext.Provider value={{ state, dispatch }}>
+      <AdminContent selected={0}>
+      </AdminContent>
+    </SearchContext.Provider>
   )
-}
-
-export async function getServerSideProps(ctx) {
-  const cookies = new Cookies(ctx.req, ctx.res)
-  console.log(cookies.get('myCookieName'));
-
-  return { props: {  } }
 }
 
 export default Dashboard;

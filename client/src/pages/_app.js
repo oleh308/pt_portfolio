@@ -1,4 +1,8 @@
-import Head from 'next/head'
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { IntlProvider } from "react-intl";
+import * as locales from "../data/locale";
 import AlertTemplate from 'react-alert-template-mui';
 import { ViewportProvider } from '../contexts/viewport';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
@@ -13,6 +17,11 @@ const options = {
 }
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const [intl, setIntl] = useState(null);
+  const { locale, defaultLocale, pathname } = router;
+
+  console.log(locale, defaultLocale, locales[locale])
   return (
     <ViewportProvider>
       <Head>
@@ -20,11 +29,16 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
-      <AlertProvider template={AlertTemplate} {...options}>
-        <Component {...pageProps} />
-      </AlertProvider>
+      <IntlProvider
+        locale={locale}
+        messages={locales[locale]}
+        defaultLocale={defaultLocale}
+      >
+        <AlertProvider template={AlertTemplate} {...options}>
+          <Component {...pageProps} />
+        </AlertProvider>
+      </IntlProvider>
     </ViewportProvider>
   );
 }
-
 export default MyApp

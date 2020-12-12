@@ -5,7 +5,7 @@ import s from './adminnav.module.scss';
 
 const pages = [
   { title: 'Dashboard', url: '/dashboard/' },
-  { title: 'Pages', url: '/dashboard/pages' },
+  { title: 'Configuration', url: '/dashboard/configuration' },
   { title: 'Calendar', url: '/dashboard/calendar' },
   { title: 'Users', url: '/dashboard/users' },
   { title: 'Enquires', url: '/dashboard/enquires' }
