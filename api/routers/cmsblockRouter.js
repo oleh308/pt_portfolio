@@ -1,4 +1,5 @@
 const express = require('express');
+const auth = require('../utils/auth');
 const CMSBlockController = require('../controllers/cmsblockController');
 
 class CMSBlockRouter {
@@ -10,11 +11,11 @@ class CMSBlockRouter {
   }
 
   routes() {
-    this.router.get('/', this.controller.getCMSBlocks);
-    this.router.get('/:id', this.controller.getCMSBlock);
-    this.router.post('/', this.controller.createCMSBlock);
-    this.router.patch('/:id', this.controller.patchCMSBlock);
-    this.router.delete('/:id', this.controller.deleteCMSBlock);
+    this.router.get('/', auth.adminEndpoint, this.controller.getCMSBlocks);
+    this.router.get('/:id', auth.adminEndpoint, this.controller.getCMSBlock);
+    this.router.post('/', auth.adminEndpoint, this.controller.createCMSBlock);
+    this.router.patch('/:id', auth.adminEndpoint, this.controller.patchCMSBlock);
+    this.router.delete('/:id', auth.adminEndpoint, this.controller.deleteCMSBlock);
   }
 }
 

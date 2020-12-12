@@ -29,14 +29,13 @@ class CMSBlockController {
       await cmsblock.save();
       res.send(cmsblock);
     } catch (error) {
-      console.log(error);
       res.sendStatus(500).send({ message: error.message });
     }
   }
 
   async patchCMSBlock(req, res) {
     try {
-      const cmsblock = await CMSBlock.findOneAndUpdate({ _id: req.params.id }, req.body);
+      const cmsblock = await CMSBlock.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
       if (!cmsblock) {
         return res.sendStatus(404).send({ message: 'CMSBlock not found' });
       } else {

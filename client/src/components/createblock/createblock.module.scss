@@ -16,12 +16,20 @@
       font-size: 14px;
     }
 
-    .generatedItem {
+    .arrayItem {
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      .arrayItemContent {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
       button {
         border: none;
+        color: $red;
       }
     }
 
@@ -62,6 +70,10 @@
     .submitButton {
       color: white;
       background-color: black;
+    }
+
+    .closeButton {
+      color: $red;
     }
 
     .submitButton {

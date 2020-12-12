@@ -10,6 +10,8 @@ const SessionRouter = require('./routers/sessionRouter');
 const CMSBlockRouter = require('./routers/cmsblockRouter');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
+mongoose.set('useFindAndModify', false);
+
 const SECRET = process.env.SECRET || 'randomstring';
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/pt_portfolio';
 

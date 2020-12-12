@@ -7,7 +7,8 @@ const pages = [
   { title: 'Dashboard', url: '/dashboard/' },
   { title: 'Pages', url: '/dashboard/pages' },
   { title: 'Calendar', url: '/dashboard/calendar' },
-  { title: 'Users', url: '/dashboard/users' }
+  { title: 'Users', url: '/dashboard/users' },
+  { title: 'Enquires', url: '/dashboard/enquires' }
 ]
 
 function getPages(selected) {

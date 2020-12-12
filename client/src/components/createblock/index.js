@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { cloneDeep } from 'lodash';
 import PropTypes from 'prop-types';
 import Input from '../inputs/input';
+import { useAlert } from 'react-alert';
 import Textarea from '../inputs/textarea';
 import DropDown from '../inputs/dropdown';
 import Templates from '../../data/blockTemplates';
+import { langs as langsInit } from '../../data/languages';
+import { generateInputs, encodeData, decodeData } from './generateInputs';
 
 import s from './createblock.module.scss';
-
-const langsInit = [
-  { title: 'en', selected: true },
-  { title: 'pl', selected: false },
-  { title: 'ua', selected: false }
-]
 
 const pagesInit = [
   { title: 'Home', key: 'home', selected: true },
@@ -20,106 +19,8 @@ const pagesInit = [
   { title: 'FAQ', key: 'faq',selected: false }
 ]
 
-
-function generateInputs(template, update) {
-  if (!template) return '';
-
-  function createInput(input, key) {
-    return (
-      <Input
-        key={key}
-        title={input.title}
-        value={input.value}
-        update={str => {
-          input.value = str,
-          update({ ...template })
-        }}
-      />
-    )
-  }
-
-  function createTextarea(input, key) {
-    return (
-      <Textarea
-        key={key}
-        title={input.title}
-        value={input.value}
-        update={str => {
-          input.value = str,
-          update({ ...template })
-        }}
-      />
-    )
-  }
-
-  function createArrayInput(value, key, textChange, deleteItem) {
-    return (
-      <div key={key} className={s.generatedItem}>
-        <Input
-          title={''}
-          value={value}
-          update={textChange}
-        />
-        <button onClick={deleteItem}>Delete</button>
-      </div>
-    )
-  }
-
-  function createArrayTextarea(value, key, textChange, deleteItem) {
-    return (
-      <div key={key} className={s.generatedItem}>
-        <Textarea
-          key={key}
-          title={''}
-          value={value}
-          update={textChange}
-        />
-        <button onClick={deleteItem}>Delete</button>
-      </div>
-    )
-  }
-
-  return Object.keys(template).map((key, i) => {
-    let input = template[key];
-
-    if (input.type === 'input') {
-      return createInput(input, i);
-    } else if (input.type === 'textarea') {
-      return createTextarea(input, i)
-    } else if (input.type === 'array') {
-      const addNew = () => {
-        input.values.push('');
-        update({ ...template });
-      }
-
-      const textChange = (str, j) => {
-        input.values[j] = str;
-        update({ ...template });
-      }
-
-      const deleteItem = (j) => {
-        input.values = input.values.filter((value, k) => k !== j);
-        update({ ...template });
-      }
-
-      return (
-        <div key={i} className={s.arrayType}>
-          <label>{input.title}</label>
-          {input.values.map((value, j) => {
-            if (input.arrayOf === 'input') {
-              return createArrayInput(value, j, str => textChange(str, j), () => deleteItem(j));
-            } else if (input.arrayOf === 'textarea') {
-              return createArrayTextarea(value, j, str => textChange(str, j), () => deleteItem(j));
-            }
-          })}
-          <button onClick={addNew}>Add new</button>
-        </div>
-      )
-    }
-  });
-}
-
-function CreateBlock({ close }) {
+function CreateBlock({ close, edit }) {
+  const alert = useAlert();
   const [name, setName] = useState('');
   const [template, setTemplate] = useState([]);
   const [langs, setLangs] = useState(langsInit);
@@ -127,17 +28,21 @@ function CreateBlock({ close }) {
   const [templates, setTemplates] = useState([]);
 
   useState(() => {
-    initTemplates();
+    if (edit) {
+      initEdit();
+    } else {
+      initTemplates();
+    }
   }, []);
 
   useEffect(() => {
-    initTemplates();
+    if (!edit) initTemplates();
   }, [pages]);
 
   useEffect(() => {
     const template = templates.find(temp => temp.selected);
 
-    setTemplate(template);
+    if (!edit) setTemplate(cloneDeep(template));
   }, [templates]);
 
   function initTemplates() {
@@ -148,7 +53,7 @@ function CreateBlock({ close }) {
       if (temps) {
         temps = temps.map((obj, i) => ({
           ...obj,
-          selected: i === 0
+          selected: false
         }));
       } else {
         temps = []
@@ -157,45 +62,92 @@ function CreateBlock({ close }) {
     }
   }
 
-  function submit() {
+  function initEdit() {
+    const skip = ['keysMap']
+    const pages = Object.keys(Templates).filter(page => !skip.includes(page));
+
+    pages.forEach(page => {
+      const templates = Templates[page];
+      const template = templates.find(temp => temp.key === edit.type);
+      if (template) setTemplate(decodeData(edit.content, cloneDeep(template)));
+    });
+
+    setName(edit.name);
+    setLangs(langs.map(lang => ({ ...lang, selected: edit.lang === lang.key })))
+  }
+
+  async function submit() {
     const lang = langs.find(lang => lang.selected);
 
-    const inputs = Object.keys(template).reduce((acc, key) => {
-      if (template[key].type === 'input' || template[key].type === 'textarea') {
-        acc[key] = template[key].value;
-      } else if (template[key].type === 'array') {
-        acc[key] = template[key].values;
-      }
-      return acc;
-    }, {});
-
-    let data = {
+    const data = {
       name: name,
-      lang: lang.title,
+      lang: lang.key,
       type: template.key,
-      content: inputs
+      content: encodeData(template)
     }
 
-    console.log(data);
+    try {
+      const response = (await axios.post('/api/cmsblocks', data)).data;
+      close(response);
+    } catch (error) {
+      if (error.response) {
+        alert.show(JSON.stringify(error.response.data), {
+          title: 'Server error',
+          closeCopy: 'Close'
+        });
+      } else {
+        alert.show(error.message, {
+          title: 'Web error',
+          closeCopy: 'Close'
+        });
+      }
+    }
+  }
+
+  async function change() {
+    const lang = langs.find(lang => lang.selected);
+
+    const data = {
+      name: name,
+      lang: lang.key,
+      content: encodeData(template)
+    }
+
+    try {
+      const response = (await axios.patch('/api/cmsblocks/' + edit._id, data)).data;
+      close(response);
+    } catch (error) {
+      if (error.response) {
+        alert.show(JSON.stringify(error.response.data), {
+          title: 'Server error',
+          closeCopy: 'Close'
+        });
+      } else {
+        alert.show(error.message, {
+          title: 'Web error',
+          closeCopy: 'Close'
+        });
+      }
+    }
   }
 
   return (
     <section className={s.createBlock}>
-      <DropDown items={langs} update={setLangs} title={'Language'}/>
-      <DropDown items={pages} update={setPages} title={'Page'}/>
-      <DropDown items={templates} update={setTemplates} title={'Page'}/>
       <Input
         value={name}
+        update={setName}
         title={'Block Name'}
-        update={e => setName(e.target.value)}
       />
+      <DropDown items={langs} update={setLangs} title={'Language'}/>
+      {!edit && <DropDown items={pages} update={setPages} title={'Page'}/>}
+      {!edit && <DropDown items={templates} update={setTemplates} title={'Template'}/>}
       {generateInputs(template, setTemplate)}
       <div className={s.buttons}>
-        <button onClick={close}>
+        <button className={s.closeButton} onClick={() => close()}>
           Close
         </button>
-        <button className={s.submitButton} onClick={submit}>
-          Submit
+        <button className={s.submitButton} onClick={edit ? change : submit}>
+          {edit ? 'Save' : 'Submit'}
         </button>
       </div>
     </section>
@@ -203,7 +155,14 @@ function CreateBlock({ close }) {
 }
 
 CreateBlock.propTypes = {
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
+  edit: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    lang: PropTypes.string.isRequired,
+    content: PropTypes.object.isRequired,
+    created_at: PropTypes.string.isRequired,
+  })
 }
 
 export default CreateBlock;

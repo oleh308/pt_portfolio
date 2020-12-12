@@ -12,7 +12,6 @@ const options = {
   position: positions.TOP_RIGHT,
 }
 
-
 function MyApp({ Component, pageProps }) {
   return (
     <ViewportProvider>
