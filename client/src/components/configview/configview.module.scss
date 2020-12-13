@@ -14,4 +14,36 @@
     justify-content: space-between;
   }
 
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    button {
+      border: none;
+      color: $silver;
+      cursor: pointer;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 3px;
+      background-color: transparent;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .submitButton {
+      color: white;
+      background-color: black;
+    }
+
+    .closeButton {
+      color: $red;
+    }
+
+    .submitButton {
+      margin-left: 3%;
+    }
+  }
 }

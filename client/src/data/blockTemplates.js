@@ -68,13 +68,17 @@ const programmeHomeTemplate = {
   },
   blockContent: {
     value: '',
-    type: 'input',
+    type: 'textarea',
     title: 'Programme brief'
   },
   points: {
     values: [],
     type: 'array',
-    arrayOf: 'textarea',
+    arrayOf: {
+      value: '',
+      type: 'textarea',
+      title: ''
+    },
     title: 'Description points'
   }
 }
@@ -84,7 +88,7 @@ const commentTemplate = {
   title: "Customer's comment",
   comment: {
     value: '',
-    type: 'input',
+    type: 'textarea',
     title: 'Comment'
   },
   clientName: {
@@ -92,7 +96,7 @@ const commentTemplate = {
     type: 'input',
     title: 'Client name'
   },
-  clientName: {
+  clientImageUrl: {
     value: '',
     type: 'input',
     title: 'Client image URL'

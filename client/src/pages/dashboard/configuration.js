@@ -114,6 +114,11 @@ function Configuration() {
     setOpenCreate(true);
   }
 
+  function updateConfig(settings, i) {
+    configurations[i].settings = settings;
+    setConfigurations([...configurations]);
+  }
+
   function getContent() {
     if (content === 'config') {
       if (configurations.length === 0) {
@@ -123,6 +128,8 @@ function Configuration() {
           <ConfigView
             key={ i }
             { ...config }
+            blocks={blocks}
+            update={(newSettings) => updateConfig(newSettings, i)}
           />
         ));
       }
@@ -146,7 +153,6 @@ function Configuration() {
     <SearchContext.Provider value={{ state, dispatch }}>
       <AdminContent selected={1}>
         <div className={s.pages}>
-        {t('helloworld')}
           <div className={s.switch}>
             <button
               onClick={() => setContent('config')}

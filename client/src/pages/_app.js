@@ -21,7 +21,6 @@ function MyApp({ Component, pageProps }) {
   const [intl, setIntl] = useState(null);
   const { locale, defaultLocale, pathname } = router;
 
-  console.log(locale, defaultLocale, locales[locale])
   return (
     <ViewportProvider>
       <Head>
@@ -33,6 +32,7 @@ function MyApp({ Component, pageProps }) {
         locale={locale}
         messages={locales[locale]}
         defaultLocale={defaultLocale}
+        onError={(error) => {}}
       >
         <AlertProvider template={AlertTemplate} {...options}>
           <Component {...pageProps} />
