@@ -10,6 +10,7 @@ class AdminRouter {
 
   routes() {
     this.router.post('/login', this.controller.login);
+    this.router.get('/logout', this.controller.logout);
   }
 }
 

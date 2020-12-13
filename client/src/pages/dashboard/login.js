@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useAlert } from 'react-alert'
+import { useIntl } from "react-intl";
+import { useAlert } from 'react-alert';
+import Input from '../../components/inputs/input';
 
 import s from '../../styles/pages/dashboard/login.module.scss';
 
 function Login() {
   const alert = useAlert();
+  const { formatMessage } = useIntl();
+  const t = id => formatMessage({ id });
+
   const [username, setUsername] = useState('oleh308');
   const [password, setPassword] = useState('123456');
 
@@ -30,12 +35,18 @@ function Login() {
   return (
     <main className={s.login}>
       <form className={s.form}>
-        <label htmlFor="email">Username</label>
-        <input type="text" value={username}
-          onChange={e => setUsername(e.target.value)} />
-        <label htmlFor="password">Password</label>
-        <input type="password" value={password}
-          onChange={e => setPassword(e.target.value)} />
+        <h2>Login</h2>
+        <Input
+          value={ username }
+          title={ t('username') }
+          update={ setUsername }
+        />
+        <Input
+          value={ password }
+          type={ 'password' }
+          title={ t('password') }
+          update={ setPassword }
+        />
         <button type="button" onClick={login}>Login</button>
       </form>
     </main>

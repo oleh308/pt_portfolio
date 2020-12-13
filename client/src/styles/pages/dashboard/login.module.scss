@@ -1,3 +1,5 @@
+@import '../../variables/colours.scss';
+
 .login {
   top: 0;
   left: 0;
@@ -12,14 +14,24 @@
     width: 90%;
     padding: 2%;
     display: flex;
-    max-width: 300px;
+    max-width: 500px;
     border-radius: 3px;
     flex-direction: column;
     border: 1px solid black;
 
-    input {
-      height: 30px;
-      margin-bottom: 10px;
+    h2 {
+      margin-bottom: 0;
+      text-align: center;
     }
+  }
+
+  button {
+    border: none;
+    color: $gold;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    background-color: black;
   }
 }

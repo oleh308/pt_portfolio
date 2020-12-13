@@ -13,20 +13,19 @@ app.prepare().then(() => {
   const server = express();
   const api = new API(server);
 
-  server.get('/dashboard', (req, res) => {
-    if(req.isAuthenticated()) {
-      return handle(req, res);
-    } else {
-      res.redirect('/dashboard/login')
-    }
-  });
-
   server.get('/dashboard/login', (req, res) => {
-    console.log(req.isAuthenticated())
     if(req.isAuthenticated()) {
       res.redirect('/dashboard');
     } else {
       return handle(req, res);
+    }
+  });
+
+  server.get('/dashboard/*', (req, res) => {
+    if(req.isAuthenticated()) {
+      return handle(req, res);
+    } else {
+      res.redirect('/dashboard/login')
     }
   });
 

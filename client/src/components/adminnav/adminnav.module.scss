@@ -42,4 +42,22 @@
   .logout {
     color: $silver;
   }
+
+  .languages {
+    flex: 1;
+    display: flex;
+    margin-bottom: 5%;
+    align-items: flex-end;
+
+    span {
+      height: 40px;
+      color: white;
+      line-height: 40px;
+    }
+
+    .selected {
+      color: $gold;
+      border: none;
+    }
+  }
 }

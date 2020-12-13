@@ -16,10 +16,19 @@ class AdminController {
         })
       })(req, res, next);
     } catch (error) {
-      console.log(error);
-      return res.sendStatus(500).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
+
+  async logout(req, res, next) {
+    try {
+      req.logout();
+      res.redirect('/dashboard/login');
+    } catch (error) {
+      return res.status(500).send({ message: error.message });
+    }
+  }
+
   //
   // async getSession(req, res) {
   //   try {
