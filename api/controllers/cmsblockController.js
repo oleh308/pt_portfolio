@@ -6,7 +6,7 @@ class CMSBlockController {
       const cmsblocks = await CMSBlock.find({});
       return res.send(cmsblocks);
     } catch (error) {
-      return res.sendStatus(500).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 
@@ -14,12 +14,12 @@ class CMSBlockController {
     try {
       const cmsblock = await CMSBlock.findOne({ _id: req.params.id });
       if (!cmsblock) {
-        return res.sendStatus(404).send({ message: 'CMSBlock not found' });
+        return res.status(404).send({ message: 'CMSBlock not found' });
       } else {
         return res.send(cmsblock);
       }
     } catch (error) {
-      return res.sendStatus(500).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 
@@ -29,7 +29,7 @@ class CMSBlockController {
       await cmsblock.save();
       res.send(cmsblock);
     } catch (error) {
-      res.sendStatus(500).send({ message: error.message });
+      res.status(500).send({ message: error.message });
     }
   }
 
@@ -37,12 +37,12 @@ class CMSBlockController {
     try {
       const cmsblock = await CMSBlock.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
       if (!cmsblock) {
-        return res.sendStatus(404).send({ message: 'CMSBlock not found' });
+        return res.status(404).send({ message: 'CMSBlock not found' });
       } else {
         return res.send(cmsblock);
       }
     } catch (error) {
-      return res.sendStatus(500).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 
@@ -55,7 +55,7 @@ class CMSBlockController {
         return res.send('');
       }
     } catch (error) {
-      return res.sendStatus(500).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 }

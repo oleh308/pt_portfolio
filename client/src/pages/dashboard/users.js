@@ -1,13 +1,15 @@
-
-import AdminNav from '../../components/adminnav';
+import { useReducer, useState, useEffect } from 'react';
 import AdminContent from '../../components/admincontent';
+import { SearchContext, SearchReducer, init } from '../../contexts/search';
 
 function Users() {
+  const [state, dispatch] = useReducer(SearchReducer, init);
+
   return (
-    <div>
-      <AdminNav selected={3} />
-      <AdminContent />
-    </div>
+    <SearchContext.Provider value={{ state, dispatch }}>
+      <AdminContent selected={3}>
+      </AdminContent>
+    </SearchContext.Provider>
   )
 }
 

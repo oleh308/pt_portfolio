@@ -25,11 +25,8 @@ class SessionController {
 
   async createSession(req, res) {
     try {
-      console.log('here')
       const session = new Session(req.body);
-      console.log(session);
       await session.save();
-      console.log(session);
       res.send(session);
     } catch (error) {
       console.log(error);

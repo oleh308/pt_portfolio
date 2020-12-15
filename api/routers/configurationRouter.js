@@ -11,6 +11,7 @@ class ConfigurationRouter {
   }
 
   routes() {
+    this.router.get('/:page/:lang', this.controller.getPage);
     this.router.get('/', auth.adminEndpoint, this.controller.getConfigurations);
     this.router.get('/:id', auth.adminEndpoint, this.controller.getConfiguration);
     this.router.post('/', auth.adminEndpoint, this.controller.createConfiguration);
