@@ -1,12 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link'
+import { useIntl } from 'react-intl';
 import IosMenu from 'react-ionicons/lib/IosMenu';
-import IosArrowRoundForward from 'react-ionicons/lib/IosArrowRoundForward';
 import { ViewportContext } from '../../contexts/viewport';
+import IosArrowRoundForward from 'react-ionicons/lib/IosArrowRoundForward';
 
 import s from './webnav.module.scss';
 
 function Webnav({ type }) {
+  const { formatMessage } = useIntl();
+  const t = id => formatMessage({ id });
   const { width } = useContext(ViewportContext);
 
   const [scroll, setScroll] = useState(0);
@@ -31,18 +34,18 @@ function Webnav({ type }) {
       return (
         <div className={s.rightside}>
           <Link passHref href="/">
-            <button>Home</button>
+            <button>{ t('home') }</button>
           </Link>
           <Link passHref href="/programmes">
-            <button>Programmes</button>
+            <button>{ t('programmes') }</button>
           </Link>
           <Link passHref href="/clients">
-            <button>Clients</button>
+            <button>{ t('clients') }</button>
           </Link>
           <Link passHref href="/faq">
-            <button>FAQ</button>
+            <button>{ t('faq') }</button>
           </Link>
-          <button className={s.bookButton}>Consultation</button>
+          <button className={s.bookButton}>{ t('consultation') }</button>
         </div>
       );
     } else {

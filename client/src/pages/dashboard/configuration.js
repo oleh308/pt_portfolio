@@ -19,7 +19,7 @@ function NoContent({ title }) {
 function Configuration() {
   const alert = useAlert();
   const { formatMessage } = useIntl();
-  const t = id => formatMessage({ id })
+  const t = id => formatMessage({ id });
   const [state, dispatch] = useReducer(SearchReducer, init);
 
   const [edit, setEdit] = useState(null);

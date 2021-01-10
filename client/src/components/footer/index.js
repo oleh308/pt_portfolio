@@ -1,45 +1,49 @@
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 import LogoFacebook from 'react-ionicons/lib/LogoFacebook';
 import LogoInstagram from 'react-ionicons/lib/LogoInstagram';
 
 import s from './footer.module.scss';
 
 function Footer() {
+  const { formatMessage } = useIntl();
+  const t = id => formatMessage({ id });
+
   return (
     <footer className={s.footer}>
       <div className={s.middle}>
         <Link passHref href="/">
-          <button>Home</button>
+          <button>{ t('home') }</button>
         </Link>
         <Link passHref href="/programmes">
-          <button>Programmes</button>
+          <button>{ t('programmes') }</button>
         </Link>
         <Link passHref href="/clients">
-          <button>Clients</button>
+          <button>{ t('clients') }</button>
         </Link>
         <Link passHref href="/consultation">
-          <button>Consulation</button>
+          <button>{ t('consultation') }</button>
         </Link>
       </div>
       <div className={s.left}>
         <Link passHref href="/?section=aboutme">
-          <button>About me</button>
+          <button>{ t('aboutme') }</button>
         </Link>
         <Link passHref href="/programmes?section=looseweight">
-          <button>Loose Weight</button>
+          <button>{ t('looseweight') }</button>
         </Link>
         <Link passHref href="/programmes?section=gainmuscles">
-          <button>Gain Muscles</button>
+          <button>{ t('gainmuscles') }</button>
         </Link>
         <Link passHref href="/programmes?section=changelifestyle">
-          <button>Change Lifestyle</button>
+          <button>{ t('changelifestyle') }</button>
         </Link>
         <Link passHref href="/contact">
-          <button>Contact Me</button>
+          <button>{ t('contactme') }</button>
         </Link>
       </div>
       <div className={s.right}>
-        <h4>Follow me</h4>
+        <h4>{ t('followme') }</h4>
         <div className={s.social}>
           <LogoFacebook fontSize="24px" />
           <LogoInstagram fontSize="24px" />

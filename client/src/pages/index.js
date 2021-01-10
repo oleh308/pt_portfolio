@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import Banner from '../components/banner';
 import Webnav from '../components/webnav';
@@ -24,6 +25,8 @@ function Home({ settings }) {
   const router = useRouter();
   const aboutMeRef = useRef();
   const contactRef = useRef();
+  const { formatMessage } = useIntl();
+  const t = id => formatMessage({ id });
 
   useEffect(() => {
     if (router?.query?.section) {
@@ -122,9 +125,9 @@ function Home({ settings }) {
               </div>
               <div className={ s.buttons }>
                 <Link passRef href={ '/programmes?section=looseweight' }>
-                  <button>Read more</button>
+                  <button>{ t('readmore') }</button>
                 </Link>
-                <button>Book Now</button>
+                <button>{ t('booknow') }</button>
               </div>
             </div>
           </div>
